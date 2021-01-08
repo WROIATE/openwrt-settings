@@ -13,7 +13,8 @@ define Package/wroiate-settings
   CATEGORY:=LuCI
   TITLE:=LuCI support for WROIATE Settings
   PKGARCH:=all
-  DEPENDS:=+default-settings +luci-theme-argon +luci-ssl-nginx +lsof
+  DEPENDS:=+default-settings +luci-theme-argon +luci-ssl-nginx +lsof +luci-app-smartdns +luci-app-adguardhome\
+  	+iputils-traceroute6 +bash +vim-full 
 endef
 
 define Package/wroiate-settings/description
