@@ -27,7 +27,7 @@ endef
 define Build/Compile
 endef
 
-define Package/default-settings/install
+define Package/wroiate-settings/install
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(INSTALL_DIR) $(1)/etc/smartdns
 	$(INSTALL_BIN) ./files/settings $(1)/etc/uci-defaults/99-wroiate-settings
