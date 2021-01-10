@@ -3,7 +3,7 @@
 ULA_PREFIX='dead:2333:6666::/48'
 [ -f /etc/jarao/flag ] && ULA_PREFIX=''
 
-uci set network.globals.ula_prefix='$ULA_PREFIX'
+uci set network.globals.ula_prefix="$ULA_PREFIX"
 uci commit network
 
 uci set luci.main.mediaurlbase='/luci-static/argon'
