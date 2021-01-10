@@ -32,6 +32,9 @@ uci commit firewall
 uci set dhcp.@dnsmasq[0].filter_aaaa='0'
 uci commit dhcp
 
+echo "export TERM=xterm" >>/etc/profile
+echo "set mouse-=a" >> /usr/share/vim/vimrc
+
 cat >/etc/init.d/nginx <<EOF
 #!/bin/sh /etc/rc.common
 
@@ -53,6 +56,64 @@ reload() {
 }
 
 EOF
-
 sed -i "/nginx/d" /etc/crontabs/root
+
+if [ ! -f /etc/jarao/flag ]; then
+        rm -rf /etc/nginx/conf.d/*conf
+        touch /etc/nginx/conf.d/_lan.conf
+
+        cat >/etc/nginx/conf.d/_lan.conf <<EOF
+# default_server for the LAN addresses getting the IPs by:
+# ifstatus lan | jsonfilter -e '@["ipv4-address","ipv6-address"].*.address'
+server {
+	listen 8080;
+	listen [::]:8080;
+	server_name localhost;
+	index nginx.html index.html index.htm index.php default.html default.htm default.php;
+	root  /www;
+	client_max_body_size 300M;
+	include conf.d/*.locations;
+
+	location ~* 		\.(?:css(\.map)?|js(\.map)?|jpe?g|png|gif|ico|cur|heic|webp|tiff?|mp3|m4a|aac|ogg|midi?|wav|mp4|mov|webm|mpe?g|avi|ogv|flv|wmv)$ {
+		expires 30d;
+	}
+
+	location ~* \.(?:svgz?|ttf|ttc|otf|eot|woff2?)$ {
+		add_header Access-Control-Allow-Origin "*";
+		expires 30d;
+	}
+
+	# location ~ /\.(?!well-known) {
+	# 	deny all;
+	# }
+}
+EOF
+
+        cat >/etc/nginx/conf.d/luci.locations <<EOF
+location /cgi-bin/luci {
+		index  index.html;
+		include uwsgi_params;
+		uwsgi_param SERVER_ADDR $server_addr;
+		uwsgi_modifier1 9;
+		uwsgi_pass unix:////var/run/luci-webui.socket;
+}
+location ~ /cgi-bin/cgi-(backup|download|upload|exec) {
+		include uwsgi_params;
+		uwsgi_param SERVER_ADDR $server_addr;
+		uwsgi_modifier1 9;
+		uwsgi_pass unix:////var/run/luci-cgi_io.socket;
+}
+
+location /luci-static {
+		error_log stderr crit;
+}
+
+location /ubus {
+        ubus_interpreter;
+        ubus_socket_path /var/run/ubus.sock;
+        ubus_parallel_req 2;
+}
+EOF
+fi
+
 /etc/init.d/nginx enable && /etc/init.d/nginx restart

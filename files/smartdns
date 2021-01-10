@@ -27,3 +27,4 @@ for line in $gfwlist; do
         echo "address /$line/#6" >>/etc/smartdns/address.conf
 	done
 rm list.txt ./gfwlist2dnsmasq.sh
+/etc/init.d/smartdns restart
