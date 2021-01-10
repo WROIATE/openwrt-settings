@@ -9,6 +9,16 @@ uci commit network
 uci set luci.main.mediaurlbase='/luci-static/argon'
 uci commit luci
 
+# Add Passwall rules
+uci set passwall.PCR=shunt_rules
+uci set passwall.PCR.remarks="公主连结日服"
+uci set passwall.PCR.domain_list="api-priconne-redive.cygames.jp"
+uci set passwall.BILIBILI=shunt_rules
+uci set passwall.BILIBILI.remarks="哔哩哔哩动画"
+uci set passwall.BILIBILI.domain_list="bilibili.com
+biliapi.net"
+uci commit passwall
+
 # Open HTTP and HTTPS port
 uci add firewall rule
 uci set firewall.@rule[-1].target='ACCEPT'
