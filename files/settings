@@ -42,8 +42,9 @@ uci commit firewall
 uci set dhcp.@dnsmasq[0].filter_aaaa='0'
 uci commit dhcp
 
+# Enable Vim xterm & mouse copy/paste
 echo "export TERM=xterm" >>/etc/profile
-echo "set mouse-=a" >> /usr/share/vim/vimrc
+sed -i "s/mouse=a/mouse=r/g" /usr/share/vim/vim*/defaults.vim
 
 cat >/etc/init.d/nginx <<EOF
 #!/bin/sh /etc/rc.common
