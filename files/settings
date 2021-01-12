@@ -67,8 +67,9 @@ reload() {
 }
 
 EOF
-sed -i "/nginx/d" /etc/crontabs/root
 
+sed -i "/nginx/d" /etc/crontabs/root
+rm -f /etc/nginx/conf.d/_redirect2ssl.conf
 if [ ! -f /etc/jarao/flag ]; then
         rm -rf /etc/nginx/conf.d/*conf
         touch /etc/nginx/conf.d/_lan.conf
