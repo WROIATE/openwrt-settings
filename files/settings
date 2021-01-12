@@ -78,8 +78,8 @@ if [ ! -f /etc/jarao/flag ]; then
 # default_server for the LAN addresses getting the IPs by:
 # ifstatus lan | jsonfilter -e '@["ipv4-address","ipv6-address"].*.address'
 server {
-	listen 8080;
-	listen [::]:8080;
+	listen 80;
+	listen [::]:80;
 	server_name localhost;
 	index nginx.html index.html index.htm index.php default.html default.htm default.php;
 	root  /www;
