@@ -15,7 +15,7 @@ define Package/wroiate-settings
   PKGARCH:=all
   DEPENDS:=+default-settings +luci-theme-argon +luci-ssl-nginx +lsof +luci-app-smartdns +luci-app-adguardhome\
   	+iputils-traceroute6 +bash +vim-fuller +luci-app-argon-config +luci-app-socat\
-	+luci-app-passwall +luci-app-samba4 +luci-app-wrtbwmon +luci-app-timecontrol +luci-app-control-weburl\
+	+luci-app-samba4 +luci-app-wrtbwmon +luci-app-timecontrol +luci-app-control-weburl\
 	+luci-app-control-webrestriction +luci-app-control-timewol +luci-app-qbittorrent +luci-app-netdata
 endef
 
