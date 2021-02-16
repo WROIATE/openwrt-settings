@@ -13,10 +13,10 @@ define Package/wroiate-settings
   CATEGORY:=LuCI
   TITLE:=LuCI support for WROIATE Settings
   PKGARCH:=all
-  DEPENDS:=+default-settings +luci-theme-argon +luci-ssl-nginx +lsof +luci-app-smartdns +luci-app-adguardhome\
-  	+iputils-traceroute6 +bash +vim-fuller +luci-app-argon-config +ipv6helper +luci-app-socat\
-	+luci-app-samba4 +luci-app-wrtbwmon +luci-app-timecontrol +luci-app-control-weburl\
-	+luci-app-control-webrestriction +luci-app-control-timewol +luci-app-qbittorrent +luci-app-netdata
+  DEPENDS:=+luci-theme-argon +lsof +bash +luci-app-control-weburl\
+  	+iputils-traceroute6 +vim-fuller +luci-app-argon-config +luci-app-socat\
+	+luci-app-samba4 +luci-app-wrtbwmon +luci-app-timecontrol +ipv6helper\
+	+luci-app-control-webrestriction +luci-app-control-timewol
 endef
 
 define Package/wroiate-settings/description
@@ -31,9 +31,9 @@ endef
 
 define Package/wroiate-settings/install
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
-	$(INSTALL_DIR) $(1)/etc/smartdns
+	$(INSTALL_DIR) $(1)/root
 	$(INSTALL_BIN) ./files/settings $(1)/etc/uci-defaults/99-wroiate-settings
-	$(INSTALL_BIN) ./files/smartdns $(1)/etc/smartdns/gfw.sh
+	$(INSTALL_BIN) ./files/smartdns $(1)/root/smartdns-gfw.sh
 endef
 
 $(eval $(call BuildPackage,wroiate-settings))

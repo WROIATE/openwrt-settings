@@ -1,4 +1,5 @@
 #!/bin/sh
+[ ! -f /etc/smartdns/address.conf ] && return 1
 wget -q https://raw.githubusercontent.com/cokebar/gfwlist2dnsmasq/master/gfwlist2dnsmasq.sh && chmod +x gfwlist2dnsmasq.sh
 ./gfwlist2dnsmasq.sh -l -o list.txt
 
