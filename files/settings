@@ -25,6 +25,8 @@ fi
 if [ -f /etc/config/allsign ]; then
 	local cangku=$(uci get allsign.cangku.cron)
 	local gmgard=$(uci get allsign.gmgard.cron)
+	chmod +x /root/cangku.sh
+	chmod +x /root/gmgard.sh
 	ehco $cangku >>/crontabs/root
 	ehco $gmgard >>/crontabs/root
 fi
