@@ -21,6 +21,14 @@ biliapi.net"
 	uci commit passwall
 fi
 
+# Set allsign crontab
+if [ -f /etc/config/allsign ]; then
+	local cangku=$(uci get allsign.cangku.cron)
+	local gmgard=$(uci get allsign.gmgard.cron)
+	ehco $cangku >>/crontabs/root
+	ehco $gmgard >>/crontabs/root
+fi
+
 # Enable IPv6
 uci set dhcp.@dnsmasq[0].filter_aaaa='0'
 uci commit dhcp
