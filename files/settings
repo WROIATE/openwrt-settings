@@ -25,10 +25,13 @@ fi
 if [ -f /etc/config/allsign ]; then
 	cangku=$(uci get allsign.cangku.cron)
 	gmgard=$(uci get allsign.gmgard.cron)
+	faq=$(uci get allsign.faq.cron)
 	chmod +x /root/cangku.sh
 	chmod +x /root/gmgard.sh
+	chmod +x /root/FAQ.sh
 	echo "$cangku" >>/etc/crontabs/root
 	echo "$gmgard" >>/etc/crontabs/root
+	echo "$faq" >>/etc/crontabs/root
 fi
 
 # Enable IPv6
