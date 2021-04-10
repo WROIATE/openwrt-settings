@@ -18,6 +18,9 @@ if [ "$(opkg list | grep luci-app-passwall)" != "" ]; then
 	uci set passwall.BILIBILI.remarks="哔哩哔哩动画"
 	uci set passwall.BILIBILI.domain_list="bilibili.com
 biliapi.net"
+	uci set passwall.UMA=shunt_rules
+	uci set passwall.UMA.remarks="赛马娘"
+	uci set passwall.UMA.domain_list="api-umamusume.cygames.jp"
 	uci commit passwall
 fi
 
@@ -50,7 +53,7 @@ if [ "$(opkg list | grep luci-.*nginx)" != "" ]; then
 	uci set firewall.@rule[-1].proto='tcp'
 	uci set firewall.@rule[-1].dest_port='443'
 	uci set firewall.@rule[-1].name='HTTPS'
-	uci set firewall.@rule[-1].family='ipv6'
+	[ -f /etc/jarao/flag ] && uci set firewall.@rule[-1].family='ipv6'
 
 	uci add firewall rule
 	uci set firewall.@rule[-1].target='ACCEPT'
@@ -58,8 +61,8 @@ if [ "$(opkg list | grep luci-.*nginx)" != "" ]; then
 	uci set firewall.@rule[-1].proto='tcp'
 	uci set firewall.@rule[-1].dest_port='80'
 	uci set firewall.@rule[-1].name='HTTP'
-	uci set firewall.@rule[-1].family='ipv6'
-
+	[ -f /etc/jarao/flag ] && uci set firewall.@rule[-1].family='ipv6'
+	
 	uci commit firewall
 
 	cat >/etc/init.d/nginx <<EOF
