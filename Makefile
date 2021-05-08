@@ -15,7 +15,7 @@ define Package/wroiate-settings
   PKGARCH:=all
   DEPENDS:=+ipv6helper +lsof +bash +vim-fuller\
   	+luci-theme-argon +luci-app-argon-config +luci-app-socat\
-	+luci-app-samba4 +luci-app-wrtbwmon +luci-app-timecontrol +luci-app-control-weburl\
+	+luci-app-samba4 +luci-app-timecontrol +luci-app-control-weburl\
 	+luci-app-control-webrestriction +luci-app-control-timewol
 endef
 
