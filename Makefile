@@ -13,7 +13,8 @@ define Package/wroiate-settings
   CATEGORY:=LuCI
   TITLE:=LuCI support for WROIATE Settings
   PKGARCH:=all
-  DEPENDS:=+ipv6helper +lsof +bash +vim-fuller\
+  DEPENDS:=+luci-base +luci +luci-compat +@LUCI_LANG_zh-cn\
+  	+ipv6helper +lsof +bash +vim-fuller\
   	+luci-theme-argon +luci-app-argon-config +luci-app-socat\
 	+luci-app-samba4 +luci-app-timecontrol +luci-app-control-weburl\
 	+luci-app-control-webrestriction +luci-app-control-timewol
