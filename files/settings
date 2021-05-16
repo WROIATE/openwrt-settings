@@ -17,7 +17,9 @@ if [ "$(opkg list | grep luci-app-passwall)" != "" ]; then
 	uci set passwall.BILIBILI=shunt_rules
 	uci set passwall.BILIBILI.remarks="哔哩哔哩动画"
 	uci set passwall.BILIBILI.domain_list="bilibili.com
-biliapi.net"
+biliapi.net
+bilivideo.com
+bilivideo.cn"
 	uci set passwall.UMA=shunt_rules
 	uci set passwall.UMA.remarks="赛马娘"
 	uci set passwall.UMA.domain_list="api-umamusume.cygames.jp"
