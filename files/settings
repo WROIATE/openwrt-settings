@@ -9,7 +9,7 @@ uci commit network
 uci set luci.main.mediaurlbase='/luci-static/argon'
 uci commit luci
 
-if [ "$(opkg list | grep luci-app-passwall)" != "" ]; then
+if [ "$(opkg list-installed | grep luci-app-passwall)" != "" ]; then
 	# Add Passwall rules
 	uci set passwall.PCR=shunt_rules
 	uci set passwall.PCR.remarks="公主连结日服"
@@ -24,6 +24,7 @@ bilivideo.cn"
 	uci set passwall.UMA.remarks="赛马娘"
 	uci set passwall.UMA.domain_list="api-umamusume.cygames.jp"
 	uci commit passwall
+	echo "bt.byr.cn" >> /usr/share/passwall/rules/proxy_host
 fi
 
 # Set allsign crontab
@@ -48,14 +49,14 @@ echo "export TERM=xterm" >>/etc/profile
 sed -i "s/mouse=a/mouse=r/g" /usr/share/vim/vim*/defaults.vim
 
 # Open HTTP and HTTPS port, reset nginx
-if [ "$(opkg list | grep luci-.*nginx)" != "" ]; then
+if [ "$(opkg list-installed | grep luci-.*nginx)" != "" ]; then
 	uci add firewall rule
 	uci set firewall.@rule[-1].target='ACCEPT'
 	uci set firewall.@rule[-1].src='wan'
 	uci set firewall.@rule[-1].proto='tcp'
 	uci set firewall.@rule[-1].dest_port='443'
 	uci set firewall.@rule[-1].name='HTTPS'
-	[ -f /etc/jarao/flag ] && uci set firewall.@rule[-1].family='ipv6'
+	# [ -f /etc/jarao/flag ] && uci set firewall.@rule[-1].family='ipv6'
 
 	uci add firewall rule
 	uci set firewall.@rule[-1].target='ACCEPT'
@@ -63,7 +64,11 @@ if [ "$(opkg list | grep luci-.*nginx)" != "" ]; then
 	uci set firewall.@rule[-1].proto='tcp'
 	uci set firewall.@rule[-1].dest_port='80'
 	uci set firewall.@rule[-1].name='HTTP'
-	[ -f /etc/jarao/flag ] && uci set firewall.@rule[-1].family='ipv6'
+	# [ -f /etc/jarao/flag ] && uci set firewall.@rule[-1].family='ipv6'
 	
 	uci commit firewall
+
+	# use custom nginx conf
+	# uci set nginx.global.uci_enable=false
+	# uci commit nginx
 fi
