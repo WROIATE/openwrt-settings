@@ -21,6 +21,9 @@ cat >/etc/smartdns/address.conf <<EOF
 # nameserver /www.example.com/office, Set the domain name to use the appropriate server group.
 # nameserver /www.example.com/-, ignore this domain
 
+address /music.163.com/#6
+address /interface.music.163.com/#6
+
 EOF
 
 gfwlist=$(cat ./list.txt)
