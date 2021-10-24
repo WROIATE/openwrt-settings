@@ -32,7 +32,7 @@ endef
 define Package/wroiate-settings/install
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(INSTALL_DIR) $(1)/root
-	$(INSTALL_BIN) ./files/settings $(1)/etc/uci-defaults/99-wroiate-settings
+	$(INSTALL_BIN) ./files/settings $(1)/etc/uci-defaults/zzz-wroiate-settings
 	$(INSTALL_BIN) ./files/smartdns $(1)/root/smartdns-gfw.sh
 endef
 
