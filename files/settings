@@ -21,7 +21,7 @@ bilivideo.cn"
 	uci set passwall.UMA.remarks="赛马娘"
 	uci set passwall.UMA.domain_list="api-umamusume.cygames.jp"
 	uci commit passwall
-	echo "byr.pt" >> /usr/share/passwall/rules/proxy_host
+	echo -e "\nbyr.pt" >> /usr/share/passwall/rules/proxy_host
 fi
 
 # Set allsign crontab
