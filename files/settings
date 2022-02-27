@@ -24,6 +24,9 @@ bilivideo.cn"
 	echo "byr.pt" >> /usr/share/passwall/rules/proxy_host
 fi
 
+# Get self script
+curl -s http://192.168.1.192:8080/script/download.sh -o /root/download.sh && chmod +x /root/download.sh
+
 # Set allsign crontab
 if [ -f /etc/config/allsign ]; then
 	cangku=$(uci get allsign.cangku.cron)
