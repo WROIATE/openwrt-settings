@@ -1,5 +1,7 @@
 #!/bin/sh
 
+chmod 600 -R /etc/dropbear
+
 uci set network.globals.ula_prefix=""
 uci commit network
 
@@ -21,8 +23,8 @@ bilivideo.cn"
 	uci set passwall.UMA.remarks="赛马娘"
 	uci set passwall.UMA.domain_list="api-umamusume.cygames.jp"
 	uci commit passwall
-	echo -e "\nbyr.pt\nbbs.zdfx.net" >> /usr/share/passwall/rules/proxy_host
-	echo -e "\nmo.konami.net" >> /usr/share/passwall/rules/direct_host
+	echo -e "\nbyr.pt\nbbs.zdfx.net" >>/usr/share/passwall/rules/proxy_host
+	echo -e "\nmo.konami.net\nykmh.com" >>/usr/share/passwall/rules/direct_host
 fi
 
 # Set allsign crontab
@@ -61,7 +63,7 @@ if [ "$(opkg list-installed | grep luci-.*nginx)" != "" ]; then
 	# uci set firewall.@rule[-1].dest_port='80'
 	# uci set firewall.@rule[-1].name='HTTP'
 	# [ -f /etc/jarao/flag ] && uci set firewall.@rule[-1].family='ipv6'
-	
+
 	uci commit firewall
 
 	# use custom nginx conf
