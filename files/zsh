@@ -1,5 +1,5 @@
 #!/bin/sh
-case "$0" in
+case "$1" in
 install)
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     ;;
@@ -21,9 +21,7 @@ fi
 $zsh_revert
 $rc_ori
 EOF
-    sed -i "s/^plugins=(\(.*\))$/plugins=(\1 zsh-syntax-highlighting z zsh-autosuggestions)/g" /root/.zshrc
-    echo "source /etc/shinit" >>/root/.zshrc
-    source /root/.zshrc
+    [ -f /root/.zshrc-bk ] && mv /root/.zshrc-bk /root/.zshrc && exec zsh -l
     ;;
 *)
     echo "default (none of above)"
