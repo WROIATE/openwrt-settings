@@ -56,12 +56,12 @@ if [ "$(opkg list-installed | grep luci-.*nginx)" != "" ]; then
 	uci set firewall.@rule[-1].name='HTTPS'
 	# [ -f /etc/jarao/flag ] && uci set firewall.@rule[-1].family='ipv6'
 
-	# uci add firewall rule
-	# uci set firewall.@rule[-1].target='ACCEPT'
-	# uci set firewall.@rule[-1].src='wan'
-	# uci set firewall.@rule[-1].proto='tcp'
-	# uci set firewall.@rule[-1].dest_port='80'
-	# uci set firewall.@rule[-1].name='HTTP'
+	uci add firewall rule
+	uci set firewall.@rule[-1].target='ACCEPT'
+	uci set firewall.@rule[-1].src='wan'
+	uci set firewall.@rule[-1].proto='tcp'
+	uci set firewall.@rule[-1].dest_port='80'
+	uci set firewall.@rule[-1].name='HTTP'
 	# [ -f /etc/jarao/flag ] && uci set firewall.@rule[-1].family='ipv6'
 
 	uci commit firewall
