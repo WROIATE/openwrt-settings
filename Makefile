@@ -15,7 +15,7 @@ define Package/wroiate-settings
   PKGARCH:=all
   DEPENDS:=+ipv6helper +lsof +bash +zsh +vim-fuller\
   	+luci-theme-argon-mod +luci-app-argon-config\
-	+ss +netcat +findutils-find +bind-dig\
+	+ss +findutils-find +bind-dig\
 	+bind-host +git-http +curl +wget
 endef
 
