@@ -1,6 +1,9 @@
 #!/bin/sh
 
 chmod 600 -R /etc/dropbear
+chmod 600 -R /root/.ssh
+chmod 644 -R /root/.ssh/*.pub
+chmod 644 /root/.ssh/config
 
 uci set network.globals.ula_prefix=""
 uci commit network
