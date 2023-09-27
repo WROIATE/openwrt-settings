@@ -8,7 +8,7 @@ uci commit network
 uci set luci.main.mediaurlbase='/luci-static/argon'
 uci commit luci
 
-if [ "$(opkg list-installed | grep luci-app-passwall)" != "" ]; then
+if [ -f "/etc/config/passwall" ]; then
 	# Add Passwall rules
 	uci set passwall.PCR=shunt_rules
 	uci set passwall.PCR.remarks="公主连结日服"
