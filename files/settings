@@ -20,11 +20,13 @@ if [ -d /root/.script ]; then
 fi
 
 # Network
-# Redirect DNS
-echo 'iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53' >>/etc/firewall.user
-echo '[ -n "$(command -v ip6tables)" ] && ip6tables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53' >>/etc/firewall.user
-# echo '[ -n "$(command -v ip6tables)" ] && ip6tables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53' >> /etc/firewall.user
-# echo 'iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53' >> /etc/firewall.user
+if [ ! -f /sbin/fw4 ]; then
+	# Redirect DNS
+	echo 'iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53' >>/etc/firewall.user
+	echo '[ -n "$(command -v ip6tables)" ] && ip6tables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53' >>/etc/firewall.user
+	# echo '[ -n "$(command -v ip6tables)" ] && ip6tables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53' >> /etc/firewall.user
+	# echo 'iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53' >> /etc/firewall.user
+fi
 
 # Enable IPv6
 uci set dhcp.@dnsmasq[0].filter_aaaa='0'
@@ -67,8 +69,9 @@ if [ -f /usr/sbin/nginx ]; then
 	uci commit firewall
 
 	sed -i "s/limit-as = 1000/limit-as = 20000/g" /etc/uwsgi/vassals/luci-webui.ini
-	sed -i 's/fastpath[^_]/fastpath >\/dev\/null"/g' /usr/lib/lua/luci/controller/turboacc.lua
 fi
+
+[ -f /usr/lib/lua/luci/controller/turboacc.lua ] && sed -i 's/fastpath[^_]/fastpath >\/dev\/null"/g' /usr/lib/lua/luci/controller/turboacc.lua
 
 # Theme
 uci set luci.main.mediaurlbase='/luci-static/argon'
